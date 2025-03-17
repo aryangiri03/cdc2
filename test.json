@@ -1,0 +1,80 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "company": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "departments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "head": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "title": { "type": "string" }
+                },
+                "required": ["name", "title"]
+              },
+              "teams": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "leader": {
+                      "type": "object",
+                      "properties": {
+                        "name": { "type": "string" },
+                        "title": { "type": "string" }
+                      },
+                      "required": ["name", "title"]
+                    },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "title": { "type": "string" },
+                          "email": { "type": "string", "format": "email" }
+                        },
+                        "required": ["name", "title", "email"]
+                      }
+                    }
+                  },
+                  "required": ["name", "leader", "members"]
+                }
+              }
+            },
+            "required": ["name", "head", "teams"]
+          }
+        }
+      },
+      "required": ["name", "location", "departments"]
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "department": { "type": "string" },
+          "description": { "type": "string" },
+          "team": { "type": "string" },
+          "status": { "type": "string", "enum": ["Planned", "In Progress", "Completed"] },
+          "start_date": { "type": "string", "format": "date" },
+          "end_date": { "type": "string", "format": "date" },
+          "budget": { "type": "number", "minimum": 0 }
+        },
+        "required": ["name", "department", "description", "team", "status", "start_date", "end_date", "budget"]
+      }
+    }
+  },
+  "required": ["company", "projects"]
+}
